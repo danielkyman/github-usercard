@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +53,72 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+function createCard(obj) {
+
+  const card = document.createElement('div'),
+    image = document.createElement('img'),
+    info = document.createElement('div'),
+    name = document.createElement('h3'),
+    username = document.createElement('p'),
+    location = document.createElement('p'),
+    profile = document.createElement('p'),
+    url = document.createElement('a'),
+    followers = document.createElement('p'),
+    following = document.createElement('p'),
+    bio = document.createElement('p');
+
+  card.appendChild(image);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(username);
+  info.appendChild(location);
+  info.appendChild(profile);
+  info.appendChild(url);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  image.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = obj.location;
+  profile.textContent = `Profile: `;
+  url.href = obj.html_url;
+  url.textContent = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+
+  return card;
+}
+
+
+const cards = document.querySelector('.cards');
+
+
+axios.get("https://api.github.com/users/danielkyman")
+  .then(response => {
+    console.log(response.data)
+    cards.append(createCard(response.data))
+  })
+  .catch(error => {
+    console.log("Failed - ", error)
+  });
+
+
+followersArray.forEach(name => {
+  axios.get(`https://api.github.com/users/${name}`)
+    .then(response => {
+      cards.append(createCard(response.data))
+    })
+    .catch(error => {
+      console.log('failed -', error)
+    })
+});
