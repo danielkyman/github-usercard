@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,6 +53,7 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
   luishrd
   bigknell
 */
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 
 function createCard(obj) {
@@ -68,17 +69,6 @@ function createCard(obj) {
     followers = document.createElement('p'),
     following = document.createElement('p'),
     bio = document.createElement('p');
-
-  card.appendChild(image);
-  card.appendChild(info);
-  info.appendChild(name);
-  info.appendChild(username);
-  info.appendChild(location);
-  info.appendChild(profile);
-  info.appendChild(url);
-  info.appendChild(followers);
-  info.appendChild(following);
-  info.appendChild(bio);
 
   card.classList.add('card');
   info.classList.add('card-info');
@@ -96,8 +86,21 @@ function createCard(obj) {
   following.textContent = `Following: ${obj.following}`;
   bio.textContent = `Bio: ${obj.bio}`;
 
+  card.appendChild(image);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(username);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(url);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
   return card;
 }
+
+
 
 
 const cards = document.querySelector('.cards');
